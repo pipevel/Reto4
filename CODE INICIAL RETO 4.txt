@@ -1,0 +1,41 @@
+# Variables de texto
+empresa = "Vaconarot"
+puestos_disponibles = ["Administrativo", "Contable"]
+
+# Variables numéricas
+presupuesto_maximo = 2500000  # Salario máximo permitido
+experiencia_minima = 3  # Años mínimos de experiencia
+
+# Base de datos simulada de candidatos
+candidatos = [
+    {"nombre": "Juan Pérez", "puesto": "Administrativo", "experiencia": 5, "salario_solicitado": 2400000, "educacion": "Universitario"},
+    {"nombre": "María Gómez", "puesto": "Contable", "experiencia": 2, "salario_solicitado": 2100000, "educacion": "Técnico"},
+    {"nombre": "Carlos López", "puesto": "Contable", "experiencia": 4, "salario_solicitado": 2600000, "educacion": "Universitario"},
+    {"nombre": "Ana Torres", "puesto": "Administrativo", "experiencia": 6, "salario_solicitado": 2300000, "educacion": "Universitario"}
+]
+
+# Función para filtrar candidatos según experiencia, puesto y salario
+def filtrar_candidatos(candidatos, puesto_requerido, exp_min, salario_max):
+    candidatos_filtrados = []
+    for candidato in candidatos:
+        if (candidato["puesto"] == puesto_requerido and
+            candidato["experiencia"] >= exp_min and
+            candidato["salario_solicitado"] <= salario_max):
+            candidatos_filtrados.append(candidato)
+    return candidatos_filtrados
+
+
+# Filtramos candidatos para el puesto de Administrativo
+administrativos_seleccionados = filtrar_candidatos(candidatos, "Administrativo", experiencia_minima, presupuesto_maximo)
+
+# Filtramos candidatos para el puesto de Contable
+contables_seleccionados = filtrar_candidatos(candidatos, "Contable", experiencia_minima, presupuesto_maximo)
+
+# Mostrar resultados
+print("Candidatos para Administrativo:")
+for admin in administrativos_seleccionados:
+    print(f"{admin['nombre']} - Experiencia: {admin['experiencia']} años - Salario solicitado: {admin['salario_solicitado']}")
+
+print("\nCandidatos para Contable:")
+for contable in contables_seleccionados:
+    print(f"{contable['nombre']} - Experiencia: {contable['experiencia']} años - Salario solicitado: {contable['salario_solicitado']}")
