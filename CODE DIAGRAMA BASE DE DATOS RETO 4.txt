@@ -1,0 +1,49 @@
+able applicants {
+  id integer [primary key]
+  name varchar
+  email varchar
+  phone varchar
+  resume text [note: 'URL or text content of the resume']
+  position_applied varchar
+  status varchar [note: 'e.g., pending, reviewed, interviewed, hired, rejected']
+  created_at timestamp
+}
+
+Table positions {
+  id integer [primary key]
+  title varchar
+  description text
+  department varchar
+  created_at timestamp
+}
+
+Table recruiters {
+  id integer [primary key]
+  name varchar
+  email varchar
+  role varchar [note: 'e.g., HR Manager, Recruiter']
+  created_at timestamp
+}
+
+Table applications {
+  id integer [primary key]
+  applicant_id integer [not null]
+  position_id integer [not null]
+  recruiter_id integer [not null]
+  status varchar [note: 'e.g., in progress, accepted, rejected']
+  created_at timestamp
+}
+
+Table comments {
+  id integer [primary key]
+  application_id integer [not null]
+  recruiter_id integer [not null]
+  comment text
+  created_at timestamp
+}
+
+Ref applicant_applications: applications.applicant_id > applicants.id // many-to-one  
+Ref position_applications: applications.position_id > positions.id // many-to-one  
+Ref recruiter_applications: applications.recruiter_id > recruiters.id // many-to-one  
+Ref application_comments: comments.application_id > applications.id // many-to-one  
+Ref recruiter_comments: comments.recruiter_id > recruiters.id // many-to-one
